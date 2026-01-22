@@ -12,12 +12,14 @@ const UserSchema = new Schema({
     password : {
         type : String,
         required : true
-    } , 
-    token : {
-        type : String,
-        required : false
-    }
-});
+    } 
+    // token : {
+    //     type : String,
+    //     required : false
+    // }
+} , 
+{ timestamps : true }
+);
 
 const User = mongoose.model('User' , UserSchema);
 

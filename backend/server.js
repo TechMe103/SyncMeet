@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+
 //createserver is userd to create http server -> to connect socket.io with express
 import { createServer } from "node:http";
 import http from "http";
@@ -32,17 +34,12 @@ app.get("/", (req, res) => {
 
 const start = async () => {
 
-    try {
-        await mongoose.connect(process.env.MONGODB_URI);
-        console.log("MongoDB connected successfully");
+    await connectDB();
 
-        server.listen(app.get("port"), () => {
-            console.log(`Server is running on port ${app.get("port")}`);
-        });
-    } catch (error) {
-        console.error("MongoDB connection failed:", error.message);
-        process.exit(1);
-        }
-    };
+    server.listen(app.get("port") , () => {
+        console.log(`Server is running on port ${app.get("port")}`);
+    });
+
+};
 
 start();
