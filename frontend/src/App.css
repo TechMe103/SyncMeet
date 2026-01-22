@@ -1,7 +1,7 @@
 .landingPageContainer {
   width: 100vw;
   height: 100vh;
-  background: url("/public/background1.jpg");
+  background: url("/background1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
@@ -41,9 +41,9 @@
 }
 
 .landingMainContainer>div:nth-child(1) div[role='button'] {
-  background: #1cb3c7;
+  background: #D97500;
   width: fit-content;
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 20px;
   margin-top: 1.9rem;
 }
@@ -76,6 +76,7 @@
 }
 
 
+
 .leftPanel {
   height: 100%;
   display: flex;
@@ -99,4 +100,3 @@
   opacity: 0.7;
   text-align: center;
 }
-
