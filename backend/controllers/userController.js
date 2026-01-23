@@ -6,39 +6,51 @@ import { transporter } from "../config/mail.js";
 import { generateRandomPassword } from "../utils/generatePassword.js";
 
 // User Registration 
-
+//pass is generated nd sent to user email 
 export const register = async (req , res ) => {
-    const { name , username } = req.body;
+    const { email , username } = req.body;
+
+    if( !email || !username) {
+        return res.status(httpsStatus.BAD_REQUEST).json({ message : "All fields are required" });
+    }
 
     try {
-        const existingUser = await User.findOne({ username });
-        if (existingUser) {
-            return res.status(httpsStatus.CONFLICT).json({ message : "Username already exists" });
+        const existingUser = await User.findOne({
+            $or : [
+                { email : email },
+                { username : username }
+            ]
+        });
+
+        if( existingUser ){
+            return res.status(httpsStatus.CONFLICT).json({ message : "User with given email or username already exists" });
         }
 
         const plainPassword = generateRandomPassword();
-        const hashedPassword = await bcrypt.hash(plainPassword , 10);
+        const hashedPassword = await bcrypt.hash(plainPassword, 10);
 
         await User.create({
-            name , 
-            username , 
+            email,
+            username,
             password : hashedPassword
-        
         });
 
-        // Send email with the generated password
+        //send password to user email
+
         await transporter.sendMail({
-            from : process.env.EMAIL_USER ,
-            to : username , 
-            subject : "Your SyncMeet Account Password" ,
-            text : `Hello ${name} , \n\n Your account has been created successfully. \n Your password is : ${plainPassword} \n\n Please change your password after logging in. \n\n Regards, \n SyncMeet Team`
+            from : process.env.EMAIL_USER,
+            to : email,
+            subject : "SyncMeet - Your Account Password",
+            text : `Welcome to SyncMeet!\n\nYour account has been created successfully.\n\nHere are your login details:\n\nUsername: ${username}\nPassword: ${plainPassword}\n\nPlease change your password after logging in for the first time.\n\nBest regards,\nSyncMeet Team`
         });
 
         return res.status(httpsStatus.CREATED).json({ message : "User registered successfully. Please check your email for the password." });
-    } catch (error) {
-        console.error("Error during registration:", error);
-        return res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({ message : "Internal Server Error" });
     }
+    catch(err) {
+        console.error("Error during user registration: ", err);
+        return res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({ message : "Internal Server Error. Registration failed." });
+    }
+
 };
 
 
@@ -65,7 +77,8 @@ export const login = async (req , res) => {
 
         const token = jwt.sign({
             id : user._id,
-            username : user.username
+            username : user.username, 
+            email : user.email
         } , 
         process.env.JWT_SECRET ,
         { expiresIn : process.env.JWT_EXPIRES_IN }
@@ -76,4 +89,4 @@ export const login = async (req , res) => {
     } catch (error) {
         return res.status(httpsStatus.INTERNAL_SERVER_ERROR).json({ message : "Internal Server Error. Login failed." });
     } 
-}
+};
