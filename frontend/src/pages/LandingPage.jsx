@@ -19,11 +19,11 @@ export default function LandingPage() {
                         router("/aljk23")
                     }}>Join as Guest</p>
                     <p onClick={() => {
-                        router("/auth")
+                        router("/auth/register")
 
                     }}>Register</p>
                     <div onClick={() => {
-                        router("/auth")
+                        router("/auth/login")
 
                     }} role='button'>
                         <p>Login</p>
@@ -38,7 +38,7 @@ export default function LandingPage() {
 
                     <p>Bringing people closer, virtually with <span style={{ color: "#1cb3c7" }}>SyncMeet</span></p>
                     <div role='button'>
-                        <Link to={"/auth"}>Get Started</Link>
+                        <Link to={"/auth/register"}>Get Started</Link>
                     </div>
                 </div>
                 <div>
