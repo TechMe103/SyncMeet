@@ -4,6 +4,7 @@ import LandingPage from "./pages/landingPage.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Signup from './pages/signupPage.jsx';
 import LoginPage from './pages/loginPage.jsx';
+import VdoConf from './pages/vdoConf.jsx';
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
         <Route path="/" element={<LandingPage />}/>
         <Route path="/auth/register" element={<Signup/>} />
         <Route path="/auth/login" element={<LoginPage/>} />
-      </Routes>
+        <Route path="/:url" element={<VdoConf/>} />
+      </Routes> 
   );
 }
 
