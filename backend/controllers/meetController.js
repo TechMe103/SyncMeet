@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import { Meeting } from "../models/meetModel";
+import { Meeting } from "../models/meetModel.js";
 
 //add meeting to history
 export const addToHistory = async (req , res) => {
