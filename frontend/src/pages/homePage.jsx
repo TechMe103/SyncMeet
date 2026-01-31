@@ -6,7 +6,7 @@ import { Button, IconButton, TextField } from '@mui/material';
 import RestoreIcon from '@mui/icons-material/Restore';
 
 
-export default function LandingPage() {
+export default function HomePage() {
 
     let navigate = useNavigate();
     
