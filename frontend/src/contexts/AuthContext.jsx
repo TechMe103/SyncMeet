@@ -1,4 +1,3 @@
-import { Email } from "@mui/icons-material";
 import axios from "axios";
 import httpStatus from "http-status";
 import { createContext, useContext, useEffect, useState } from "react";

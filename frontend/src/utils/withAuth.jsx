@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 const withAuth = (WrappedComponent) => {
     const AuthComponent = (props) => {
         const router = useNavigate();
@@ -14,16 +15,20 @@ const withAuth = (WrappedComponent) => {
 
         useEffect (() => {
             if(!isAuthenticated()) {
-                router("/auth");
-                // navigate("/auth");
+                // router("/auth");
+                navigate("/auth/login");
 
             } 
         } , [navigate]);
 
+        if(!isAuthenticated()) {
+            return null;
+        }
+
         return <WrappedComponent {...props}/>
-    }
+    };
 
     return AuthComponent;
-}
+};
 
 export default withAuth;

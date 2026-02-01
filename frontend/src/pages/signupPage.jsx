@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState , useContext } from 'react';
 import { useNavigate , Link } from 'react-router-dom';
-import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 
 import {
@@ -11,12 +10,11 @@ import {
   Container,
   Paper,
   InputAdornment,
-  IconButton,
 } from '@mui/material';
 import { Person, Email } from '@mui/icons-material';
 
 export default function SignupPage() {
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -27,12 +25,16 @@ export default function SignupPage() {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
+  if(!formData.username || !formData.email)  return;
+
+
   try {
     await handleRegister(
       formData.username,
       formData.email,
-      formData.password
+      // formData.password
     );
+    navigate("/auth/login");
   } catch (err) {
     alert("Registration failed");
   }

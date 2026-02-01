@@ -1,5 +1,5 @@
 import React , { useContext , useState } from 'react'
-import withAuth from '../utils/withAuth'
+// import withAuth from '../utils/withAuth'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
 import { Button, IconButton, TextField } from '@mui/material';
@@ -12,7 +12,7 @@ export default function HomePage() {
     
     const [meetingCode , setMeedingCode] = useState("");
     
-    const { addToUserHistory } = useContext(AuthContext);
+    const { addToUserHistory , logout } = useContext(AuthContext);
 
     let handleJoinVideoCall = async () => {
         if(!meetingCode.trim())  return;

@@ -18,7 +18,8 @@ function App() {
         <Route path="/" element={<LandingPage />}/>
         <Route path="/auth/register" element={<Signup/>} />
         <Route path="/auth/login" element={<LoginPage/>} />
-        <Route path="/:url" element={<VdoConf/>} />
+        {/* <Route path="/:url" element={<VdoConf/>} /> */}
+        <Route path="/meet/:url" element={<VdoConf/>} />
         <Route path="/home" element={<HomePage/>} />
         <Route path="/history" element={<HistoryPage/>} /> 
       </Routes> 
